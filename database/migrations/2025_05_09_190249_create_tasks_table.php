@@ -18,10 +18,15 @@ return new class extends Migration
 			$table->enum('status', ['pending', 'in_progress', 'completed'])->default('pending');
 			$table->boolean('is_important')->default(false);
 			$table->date('due_date')->nullable();
-			$table->foreignId('created_by')->constrained('users');
-			$table->foreignId('assigned_to')->nullable()->constrained('users');
-			$table->foreignId('parent_id')->nullable()->constrained('tasks');
+			$table->foreignId('created_by')->constrained('users')->onDelete('cascade');
+			$table->foreignId('assigned_to')->nullable()->constrained('users')->onDelete('set null');
+			$table->foreignId('parent_id')->nullable()->constrained('tasks')->onDelete('cascade');
 			$table->timestamps();
+
+			$table->index('status');
+			$table->index('due_date');
+			$table->index('assigned_to');
+			$table->index(['created_by', 'assigned_to']);
 		});
 	}
 
