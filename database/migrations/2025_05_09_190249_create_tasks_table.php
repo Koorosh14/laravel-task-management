@@ -20,13 +20,19 @@ return new class extends Migration
 			$table->date('due_date')->nullable();
 			$table->foreignId('created_by')->constrained('users')->onDelete('cascade');
 			$table->foreignId('assigned_to')->nullable()->constrained('users')->onDelete('set null');
-			$table->foreignId('parent_id')->nullable()->constrained('tasks')->onDelete('cascade');
+			$table->unsignedBigInteger('parent_id')->nullable();
 			$table->timestamps();
 
 			$table->index('status');
 			$table->index('due_date');
 			$table->index('assigned_to');
 			$table->index(['created_by', 'assigned_to']);
+		});
+
+		// We might encounter an issue with `parent_id` foreign key, because the tasks table refers to itself.
+		// To prevent this, we'll add the foreign key constraint separately:
+		Schema::table('tasks', function (Blueprint $table) {
+			$table->foreign('parent_id')->references('id')->on('tasks')->onDelete('cascade');
 		});
 	}
 
