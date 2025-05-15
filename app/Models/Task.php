@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\TaskStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -12,6 +13,10 @@ class Task extends Model
 	use HasFactory;
 
 	protected $fillable = ['title', 'description', 'status', 'is_important', 'due_date', 'created_by', 'assigned_to', 'parent_id'];
+
+	protected $casts = [
+		'status' => TaskStatus::class,
+	];
 
 	public function creator()
 	{
