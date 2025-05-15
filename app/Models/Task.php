@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Task extends Model
 {
@@ -27,6 +28,15 @@ class Task extends Model
 		return $this->belongsTo(Task::class, 'parent_id');
 	}
 
+	/**
+	 * Returns all the subtasks for this task.
+	 *
+	 * To test and see if this is working:
+	 * 		php artisan tinker
+	 * 		\App\Models\Task::all()->get(0)->subtasks
+	 *
+	 * @return	HasMany<TRelatedModel, $this>
+	 */
 	public function subtasks()
 	{
 		return $this->hasMany(Task::class, 'parent_id');

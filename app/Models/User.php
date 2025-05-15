@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -46,11 +47,29 @@ class User extends Authenticatable
         ];
     }
 
+	/**
+	 * Returns all the tasks created by this user.
+	 *
+	 * To test and see if this is working:
+	 * 		php artisan tinker
+	 * 		\App\Models\User::all()->get(0)->createdTasks
+	 *
+	 * @return	HasMany<TRelatedModel, $this>
+	 */
 	public function createdTasks()
 	{
 		return $this->hasMany(Task::class, 'created_by');
 	}
 
+	/**
+	 * Returns all the tasks assigned to this user.
+	 *
+	 * To test and see if this is working:
+	 * 		php artisan tinker
+	 * 		\App\Models\User::all()->get(0)->assignedTasks
+	 *
+	 * @return	HasMany<TRelatedModel, $this>
+	 */
 	public function assignedTasks()
 	{
 		return $this->hasMany(Task::class, 'assigned_to');
