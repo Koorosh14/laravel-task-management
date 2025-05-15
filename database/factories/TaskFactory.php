@@ -22,9 +22,9 @@ class TaskFactory extends Factory
 			'description'  => fake()->realText(500),
 			'status'       => fake()->randomElement(['pending', 'in_progress', 'completed']),
 			'is_important' => fake()->boolean(10),
-			'due_date'     => fake()->dateTimeBetween('-1 week', '+1 week'),
+			'due_date'     => fake()->randomElement([null, fake()->dateTimeBetween('-1 week', '+1 week')]),
 			'created_by'   => User::all()->random()->id,
-			'assigned_to'  => User::all()->random()->id,
+			'assigned_to'  => fake()->randomElement([null, User::all()->random()->id]),
 		];
 	}
 }
