@@ -41,4 +41,18 @@ class Task extends Model
 	{
 		return $this->hasMany(Task::class, 'parent_id');
 	}
+
+	/**
+	 * Returns all logs for this task.
+	 *
+	 * To test and see if this is working:
+	 * 		php artisan tinker
+	 * 		\App\Models\Task::all()->get(0)->logs
+	 *
+	 * @return	HasMany<TRelatedModel, $this>
+	 */
+	public function logs()
+	{
+		return $this->hasMany(Log::class);
+	}
 }
