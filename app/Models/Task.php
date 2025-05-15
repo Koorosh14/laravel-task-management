@@ -16,6 +16,8 @@ class Task extends Model
 
 	protected $casts = [
 		'status' => TaskStatus::class,
+		'is_important' => 'boolean',
+		'due_date' => 'datetime',
 	];
 
 	public function creator()
