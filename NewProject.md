@@ -36,11 +36,7 @@ Set `APP_ENV=dev` and `APP_DEBUG=true` in `.env` for development mode.
 <summary>Install these if not already present in composer.json:</summary>
 
 Tailwind CSS:
-Tailwind is already installed in the recent versions of Laravel, and all you need to do is to run `npm run dev`. But if by any reason it's not already installed:
-```
-npm install -D tailwindcss postcss autoprefixer
-npx tailwindcss init -p
-```
+Tailwind is already installed in the recent versions of Laravel, and all you need to do is to run `npm run dev`. But if by any reason it's not already installed, follow [these steps](https://tailwindcss.com/docs/installation/using-vite).
 
 Laravel Debugbar:
 ```
