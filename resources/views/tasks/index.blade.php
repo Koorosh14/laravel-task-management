@@ -11,7 +11,9 @@
 				<div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
 					<div class="flex items-center justify-between mb-4">
 						<h2 class="text-xl font-semibold">
-							{{ $task->title }}
+							<a href="{{ route('tasks.show', $task) }}" class="hover:text-blue-600">
+								{{ $task->title }}
+							</a>
 						</h2>
 						<span
 							class="px-3 py-1 text-sm rounded-full
@@ -35,7 +37,6 @@
 									{{ $task->due_date->format('M d, Y') }}
 								</div>
 							@endif
-
 						</div>
 					</div>
 				</div>
@@ -45,6 +46,5 @@
 				</div>
 			@endforelse
 		</div>
-
 	</div>
 @endsection
