@@ -15,11 +15,18 @@
 								{{ $task->title }}
 							</a>
 						</h2>
-						<span
-							class="px-3 py-1 text-sm rounded-full
+
+						<div class="gap-1">
+							@if ($task->is_important)
+								<span class="text-red-500">★</span>
+							@endif
+
+							<span
+								class="px-3 py-1 text-sm rounded-full
                               {{ $task->status === \App\TaskStatus::COMPLETED ? 'bg-green-200 text-green-800' : 'bg-gray-200 text-gray-800' }}">
-							{{ $task->status->getLabel() }}
-						</span>
+								{{ $task->status->getLabel() }}
+							</span>
+						</div>
 					</div>
 
 					<div class="text-gray-600 mb-4">
