@@ -3,6 +3,16 @@
 @section('title', 'Task Details')
 
 @section('content')
+	<div class="m-4">
+		<a href="{{ route('tasks.index') }}" class="inline-flex items-center border border-blue-200 px-3 py-1.5 rounded-md text-blue-400 hover:bg-blue-50">
+			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-4 w-4">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18">
+				</path>
+			</svg>
+			<span class="ml-1 font-bold">Back to Tasks</span>
+		</a>
+	</div>
+
 	<div class="container mx-auto px-4 py-8">
 		<div class="max-w-3xl mx-auto">
 			<div class="bg-white rounded-lg shadow-md p-6 mb-6">
@@ -42,5 +52,6 @@
 					</div>
 				</div>
 			</div>
+		</div>
 	</div>
 @endsection
