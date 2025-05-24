@@ -20,14 +20,27 @@
 						<p class="whitespace-pre-wrap">{{ $task->description }}</p>
 					@endif
 
-					@if ($task->due_date)
+					<div class="grid grid-cols-3 gap-4 text-sm">
 						<div>
-							<label class="font-medium">Due Date:</label>
-							<p>{{ $task->due_date->format('M d, Y H:i') }}</p>
+							<label class="font-medium">Created by:</label>
+							<p>{{ $task->creator->name }}</p>
 						</div>
-					@endif
+
+						@if ($task->assignee)
+							<div>
+								<label class="font-medium">Assigned to:</label>
+								<p>{{ $task->assignee->name }}</p>
+							</div>
+						@endif
+
+						@if ($task->due_date)
+							<div>
+								<label class="font-medium">Due Date:</label>
+								<p>{{ $task->due_date->format('M d, Y H:i') }}</p>
+							</div>
+						@endif
+					</div>
 				</div>
 			</div>
-		</div>
 	</div>
 @endsection
