@@ -67,5 +67,11 @@
 				</div>
 			@endforelse
 		</div>
+
+		@if ($tasks instanceof \Illuminate\Pagination\AbstractPaginator)
+			<div class="mt-8">
+				{{ $tasks->links() }}
+			</div>
+		@endif
 	</div>
 @endsection

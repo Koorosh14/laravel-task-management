@@ -13,7 +13,11 @@ class TaskController extends Controller
 	 */
 	public function index()
 	{
-		return view('tasks.index', ['tasks' => Task::with(['creator', 'assignee'])->get()]);
+		$tasks = Task::with(['creator', 'assignee'])
+			->latest()
+			->paginate(10);
+
+		return view('tasks.index', compact('tasks'));
 	}
 
 	/**
