@@ -13,8 +13,10 @@ class TaskController extends Controller
 	 */
 	public function index()
 	{
-		$tasks = Task::with(['creator', 'assignee'])
-			->latest()
+		$tasks = Task::query()
+			->with(['creator', 'assignee'])
+			->orderBy('is_important', 'desc')
+			->orderBy('due_date', 'asc')
 			->paginate(10);
 
 		return view('tasks.index', compact('tasks'));
