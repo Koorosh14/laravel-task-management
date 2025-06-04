@@ -11,6 +11,17 @@
 			<div class="filters mb-4 md:mb-0">
 				<form action="{{ route('tasks.index') }}" method="get" class="flex flex-wrap gap-2">
 					<div>
+						<label for="filters-status" class="text-gray-600">Status</label>
+						<select id="filters-status" name="status" class="py-2 px-3 border border-gray-300 rounded-md">
+							<option value="">All Statuses</option>
+							<option value="{{ \App\TaskStatus::PENDING }}" {{ $filters['status'] == \App\TaskStatus::PENDING->value ? 'selected' : '' }}>Pending</option>
+							<option value="{{ \App\TaskStatus::IN_PROGRESS }}" {{ $filters['status'] == \App\TaskStatus::IN_PROGRESS->value ? 'selected' : '' }}>In Progress
+							</option>
+							<option value="{{ \App\TaskStatus::COMPLETED }}" {{ $filters['status'] == \App\TaskStatus::COMPLETED->value ? 'selected' : '' }}>Completed</option>
+						</select>
+					</div>
+
+					<div>
 						<label for="filters-sort" class="text-gray-600">Sort</label>
 						<select id="filters-sort" name="sort" class="py-2 px-3 border border-gray-300 rounded-md">
 							<option value="due_date" {{ $filters['sort'] == 'due_date' ? 'selected' : '' }}>Due Date</option>
@@ -31,9 +42,11 @@
 						Apply Filters
 					</button>
 
-					<a href="{{ route('tasks.index') }}" class="py-2 px-4 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">
-						Reset
-					</a>
+					@if ($filters['status'] || $filters['sort'] != 'due_date' || $filters['sort_by'] != 'ASC')
+						<a href="{{ route('tasks.index') }}" class="py-2 px-4 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">
+							Reset
+						</a>
+					@endif
 				</form>
 			</div>
 		</div>
