@@ -6,6 +6,38 @@
 	<div class="container mx-auto px-4 py-8">
 		<h1 class="text-3xl font-bold mb-8">Task List</h1>
 
+		{{-- Filter and Sort --}}
+		<div class="mb-6 flex flex-col md:flex-row justify-between">
+			<div class="filters mb-4 md:mb-0">
+				<form action="{{ route('tasks.index') }}" method="get" class="flex flex-wrap gap-2">
+					<div>
+						<label for="filters-sort" class="text-gray-600">Sort</label>
+						<select id="filters-sort" name="sort" class="py-2 px-3 border border-gray-300 rounded-md">
+							<option value="due_date" {{ $filters['sort'] == 'due_date' ? 'selected' : '' }}>Due Date</option>
+							<option value="title" {{ $filters['sort'] == 'title' ? 'selected' : '' }}>Title</option>
+							<option value="created_at" {{ $filters['sort'] == 'created_at' ? 'selected' : '' }}>Creation Date</option>
+							<option value="is_important" {{ $filters['sort'] == 'is_important' ? 'selected' : '' }}>Importance</option>
+						</select>
+					</div>
+
+					<div>
+						<select name="sort_by" class="py-2 px-3 border border-gray-300 rounded-md">
+							<option value="DESC" {{ $filters['sort_by'] == 'DESC' ? 'selected' : '' }}>Descending</option>
+							<option value="ASC" {{ $filters['sort_by'] == 'ASC' ? 'selected' : '' }}>Ascending</option>
+						</select>
+					</div>
+
+					<button type="submit" class="py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+						Apply Filters
+					</button>
+
+					<a href="{{ route('tasks.index') }}" class="py-2 px-4 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">
+						Reset
+					</a>
+				</form>
+			</div>
+		</div>
+
 		<div class="grid gap-6">
 			@forelse ($tasks as $task)
 				<div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
