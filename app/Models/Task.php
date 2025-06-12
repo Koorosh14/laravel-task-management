@@ -62,4 +62,29 @@ class Task extends Model
 	{
 		return $this->hasMany(Log::class);
 	}
+
+	/**
+	 * Returns tasks with filters and sorting.
+	 *
+	 * @param	array	$filters
+	 *
+	 * @return	Task[]
+	 */
+	public static function getFilteredTasks(array $filters)
+	{
+		$tasks = Task::query()->with(['creator', 'assignee']);
+
+		if (!empty($status = TaskStatus::tryFrom($filters['status'])))
+			$tasks = $tasks->where('status', $status);
+
+		$sort   = in_array($filters['sort'], ['title', 'due_date', 'created_at', 'is_important']) ? $filters['sort'] : 'due_date';
+		$sortBy = in_array(strtoupper($filters['sort_by']), ['ASC', 'DESC']) ? strtoupper($filters['sort_by']) : 'ASC';
+		$tasks  = $tasks->orderBy($sort, $sortBy);
+
+		// Add a default due date sort if the selected option is different
+		if ($sort !== 'due_date')
+			$tasks = $tasks->orderBy('due_date', 'ASC');
+
+		return $tasks->paginate(10);
+	}
 }
