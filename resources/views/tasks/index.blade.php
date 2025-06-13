@@ -3,9 +3,13 @@
 @section('title', 'Tasks List')
 
 @section('content')
-	<div class="container mx-auto px-4 py-8">
+	<div class="flex justify-between items-center mb-8">
 		<h1 class="text-3xl font-bold mb-8">Task List</h1>
 
+		<a href="{{ route('tasks.create') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">New Task</a>
+	</div>
+
+	<div class="container mx-auto px-4 py-8">
 		{{-- Filter and Sort --}}
 		<div class="mb-6 flex flex-col md:flex-row justify-between">
 			<div class="filters mb-4 md:mb-0">
@@ -15,8 +19,7 @@
 						<select id="filters-status" name="status" class="py-2 px-3 border border-gray-300 rounded-md">
 							<option value="">All Statuses</option>
 							<option value="{{ \App\TaskStatus::PENDING }}" {{ $filters['status'] == \App\TaskStatus::PENDING->value ? 'selected' : '' }}>Pending</option>
-							<option value="{{ \App\TaskStatus::IN_PROGRESS }}" {{ $filters['status'] == \App\TaskStatus::IN_PROGRESS->value ? 'selected' : '' }}>In Progress
-							</option>
+							<option value="{{ \App\TaskStatus::IN_PROGRESS }}" {{ $filters['status'] == \App\TaskStatus::IN_PROGRESS->value ? 'selected' : '' }}>In Progress</option>
 							<option value="{{ \App\TaskStatus::COMPLETED }}" {{ $filters['status'] == \App\TaskStatus::COMPLETED->value ? 'selected' : '' }}>Completed</option>
 						</select>
 					</div>
@@ -51,6 +54,7 @@
 			</div>
 		</div>
 
+		{{-- Tasks --}}
 		<div class="grid gap-6">
 			@forelse ($tasks as $task)
 				<div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">

@@ -39,4 +39,14 @@ class TaskController extends Controller
 	{
 		return view('tasks.show', compact('task'));
 	}
+
+	/**
+	 * Displays the form for creating a new task.
+	 *
+	 * @return	\Illuminate\Contracts\View\View
+	 */
+	public function create()
+	{
+		return view('tasks.create');
+	}
 }
