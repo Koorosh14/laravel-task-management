@@ -14,7 +14,7 @@
 </head>
 
 <body>
-	<main class="container my-4">
+	<main class="container my-4 mx-auto">
 		@yield('content')
 	</main>
 
