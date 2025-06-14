@@ -86,7 +86,7 @@
 							Is important?
 						</label>
 						<div class="mt-1">
-							<input type="checkbox" id="is_important" name="is_important" />
+							<input type="checkbox" id="is_important" name="is_important" @checked(old('is_important')) />
 						</div>
 						@error('is_important')
 							<p class="mt-2 text-sm text-red-600">{{ $message }}</p>
