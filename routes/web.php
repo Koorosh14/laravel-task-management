@@ -7,4 +7,5 @@ Route::get('/', fn() => view('welcome'));
 
 Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
 Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
+Route::post('/tasks/create', [TaskController::class, 'store'])->name('tasks.store');
 Route::get('/tasks/{task}', [TaskController::class, 'show'])->name('tasks.show');

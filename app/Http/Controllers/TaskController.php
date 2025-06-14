@@ -49,4 +49,31 @@ class TaskController extends Controller
 	{
 		return view('tasks.create');
 	}
+
+	/**
+	 * Stores a newly created task.
+	 *
+	 * @param	Request		$request
+	 *
+	 * @return	\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+	 */
+	public function store(Request $request)
+	{
+		// Validate the request
+		$validated = $request->validate([
+			'title'        => 'required|string|max:512',
+			'description'  => 'nullable|string',
+			'status'       => 'required|in:pending,in_progress,completed',
+			// 'is_important' => 'sometimes|boolean',
+			'due_date'     => 'nullable|date',
+		]);
+
+		$validated['created_by']   = 1; // Temporary placeholder for now
+		$validated['is_important'] = $request->has('is_important');
+
+		$task = Task::create($validated);
+
+		return redirect()->route('tasks.show', $task->id)
+			->with('success', 'Task created successfully');
+	}
 }

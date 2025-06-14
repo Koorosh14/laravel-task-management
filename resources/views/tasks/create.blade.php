@@ -9,7 +9,7 @@
 		</div>
 
 		<div class="border-t border-gray-200">
-			<form action="{{-- {{ route('tasks.store') }} --}}" method="GET" class="px-4 py-5 sm:p-6">
+			<form action="{{ route('tasks.store') }}" method="POST" class="px-4 py-5 sm:p-6">
 				@csrf
 
 				{{-- Title --}}
