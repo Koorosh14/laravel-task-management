@@ -103,11 +103,40 @@
 						</a>
 						<button type="submit"
 							class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+							<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+							</svg>
 							Create Task
 						</button>
 					</div>
 				</div>
 			</form>
+		</div>
+	</div>
+
+	{{-- Help Section --}}
+	<div class="mt-6 bg-blue-50 border border-blue-200 rounded-md p-4">
+		<div class="flex">
+			<div class="flex-shrink-0">
+				<svg class="h-5 w-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+					xmlns="http://www.w3.org/2000/svg">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+						d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+				</svg>
+			</div>
+			<div class="ml-3">
+				<h3 class="text-sm font-medium text-blue-800">
+					Quick Tips
+				</h3>
+				<div class="mt-2 text-sm text-blue-700">
+					<ul class="list-disc pl-5 space-y-1">
+						<li>Use descriptive titles to make tasks easy to identify</li>
+						<li>Set realistic due dates to stay on track</li>
+						<li>Important tasks will be highlighted in your task list</li>
+					</ul>
+				</div>
+			</div>
 		</div>
 	</div>
 @endsection
