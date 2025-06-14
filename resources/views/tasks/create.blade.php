@@ -20,9 +20,12 @@
 						</label>
 						<div class="mt-1">
 							<input type="text" name="title" id="title" value="{{ old('title') }}" required
-								class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+								class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md @error('title') border-red-300 @enderror"
 								placeholder="Enter task title">
 						</div>
+						@error('title')
+							<p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+						@enderror
 					</div>
 				</div>
 
@@ -34,9 +37,12 @@
 						</label>
 						<div class="mt-1">
 							<textarea id="description" name="description" rows="4"
-							 class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+							 class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md @error('description') border-red-300 @enderror"
 							 placeholder="Describe the task in detail">{{ old('description') }}</textarea>
 						</div>
+						@error('description')
+							<p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+						@enderror
 					</div>
 				</div>
 
@@ -49,12 +55,15 @@
 						</label>
 						<div class="mt-1">
 							<select id="status" name="status"
-								class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+								class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md @error('status') border-red-300 @enderror">
 								<option value="{{ \App\TaskStatus::PENDING }}" {{ old('status', 'pending') == \App\TaskStatus::PENDING->value ? 'selected' : '' }}>Pending</option>
 								<option value="{{ \App\TaskStatus::IN_PROGRESS }}" {{ old('status', 'pending') == \App\TaskStatus::IN_PROGRESS->value ? 'selected' : '' }}>In Progress</option>
 								<option value="{{ \App\TaskStatus::COMPLETED }}" {{ old('status', 'pending') == \App\TaskStatus::COMPLETED->value ? 'selected' : '' }}>Completed</option>
 							</select>
 						</div>
+						@error('status')
+							<p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+						@enderror
 					</div>
 
 					{{-- Due Date --}}
@@ -64,8 +73,11 @@
 						</label>
 						<div class="mt-1">
 							<input type="date" name="due_date" id="due_date" value="{{ old('due_date') }}"
-								class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+								class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md @error('due_date') border-red-300 @enderror">
 						</div>
+						@error('due_date')
+							<p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+						@enderror
 					</div>
 
 					{{-- Importance --}}
@@ -76,6 +88,9 @@
 						<div class="mt-1">
 							<input type="checkbox" id="is_important" name="is_important" />
 						</div>
+						@error('is_important')
+							<p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+						@enderror
 					</div>
 				</div>
 
