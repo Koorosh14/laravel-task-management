@@ -76,4 +76,43 @@ class TaskController extends Controller
 		return redirect()->route('tasks.show', $task->id)
 			->with('success', 'Task created successfully');
 	}
+
+	/**
+	 * Displays the form for editing a specified task.
+	 *
+	 * @param	Task		$task
+	 *
+	 * @return	\Illuminate\Contracts\View\View
+	 */
+	public function edit(Task $task)
+	{
+		return view('tasks.edit', compact('task'));
+	}
+
+	/**
+	 * Updates a specified task.
+	 *
+	 * @param	Task		$task
+	 * @param	Request		$request
+	 *
+	 * @return	\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+	 */
+	public function update(Request $request, Task $task)
+	{
+		// Validate the request
+		$validated = $request->validate([
+			'title'        => 'required|string|max:512',
+			'description'  => 'nullable|string',
+			'status'       => 'required|in:pending,in_progress,completed',
+			// 'is_important' => 'sometimes|boolean',
+			'due_date'     => 'nullable|date',
+		]);
+
+		$validated['is_important'] = $request->has('is_important');
+
+		$task->update($validated);
+
+		return redirect()->route('tasks.show', $task->id)
+			->with('success', 'Task updated successfully');
+	}
 }
