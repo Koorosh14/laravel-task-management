@@ -111,6 +111,18 @@
 					</div>
 				</div>
 
+				{{-- Timestamps --}}
+				<div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2 mb-6">
+					<div class="bg-gray-50 px-4 py-3 rounded-md">
+						<div class="text-sm font-medium text-gray-700">Created</div>
+						<div class="text-sm text-gray-500">{{ $task->created_at->format('F d, Y \a\t g:i A') }}</div>
+					</div>
+					<div class="bg-gray-50 px-4 py-3 rounded-md">
+						<div class="text-sm font-medium text-gray-700">Last Updated</div>
+						<div class="text-sm text-gray-500">{{ $task->updated_at->format('F d, Y \a\t g:i A') }}</div>
+					</div>
+				</div>
+
 				{{-- Form Actions --}}
 				<div class="pt-5 border-t border-gray-200">
 					<div class="flex justify-between">
