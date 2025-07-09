@@ -81,6 +81,8 @@
 					<div class="text-gray-600 mb-4">
 						@if ($task->description)
 							<p class="mb-2">{{ Str::limit($task->description, 100) }}</p>
+						@else
+							<p class="text-gray-500 mb-2">No description provided.</p>
 						@endif
 
 						<div class="flex items-center gap-4 text-sm">

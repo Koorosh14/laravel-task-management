@@ -28,6 +28,8 @@
 				<div class="space-y-4 text-gray-600">
 					@if ($task->description)
 						<p class="whitespace-pre-wrap">{{ $task->description }}</p>
+					@else
+						<p class="text-gray-500">No description provided.</p>
 					@endif
 
 					<div class="grid grid-cols-3 gap-4 text-sm">
