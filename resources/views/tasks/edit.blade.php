@@ -137,6 +137,18 @@
 							</a>
 						</div>
 						<div class="flex space-x-3">
+							{{-- Delete Button --}}
+							<button type="button" onclick="document.getElementById('deleteForm').submit();"
+								class="inline-flex items-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+								<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+									xmlns="http://www.w3.org/2000/svg">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+										d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+									</path>
+								</svg>
+								Delete
+							</button>
+
 							{{-- Update Button --}}
 							<button type="submit"
 								class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
@@ -152,6 +164,21 @@
 			</form>
 		</div>
 	</div>
+
+	{{-- Hidden Delete Form (Because we can't have our delete form inside the existing update form) --}}
+	<form id="deleteForm" action="{{ route('tasks.destroy', $task->id) }}" method="POST" style="display: none;">
+		@csrf
+		@method('DELETE')
+	</form>
+
+	{{-- Task delete confirmation Script --}}
+	<script>
+		document.getElementById('deleteForm').addEventListener('submit', function(e)
+		{
+			if (!confirm('Are you sure you want to delete this task? This action cannot be undone!'))
+				e.preventDefault();
+		});
+	</script>
 
 	{{-- Help Section --}}
 	<div class="mt-6 bg-yellow-50 border border-yellow-200 rounded-md p-4">
