@@ -115,4 +115,19 @@ class TaskController extends Controller
 		return redirect()->route('tasks.show', $task->id)
 			->with('success', 'Task updated successfully');
 	}
+
+	/**
+	 * Removes a specified task.
+	 *
+	 * @param	Task		$task
+	 *
+	 * @return	\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+	 */
+	public function destroy(Task $task)
+	{
+		$task->delete();
+
+		return redirect()->route('tasks.index')
+			->with('success', 'Task deleted successfully');
+	}
 }
