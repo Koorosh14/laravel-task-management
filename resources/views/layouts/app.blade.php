@@ -17,7 +17,8 @@
 
 <body>
 	<main class="container my-4 mx-auto">
-		<x-flash-message />
+		<x-flash-message type="success" class="bg-green-100 border-green-500 text-green-700" />
+		<x-flash-message type="error" class="bg-red-100 border-red-500 text-red-700" />
 
 		@yield('content')
 	</main>
