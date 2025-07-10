@@ -18,11 +18,16 @@
 			<div class="bg-white rounded-lg shadow-md p-6 mb-6">
 				<div class="flex items-center justify-between mb-6">
 					<h1 class="text-3xl font-bold">{{ $task->title }}</h1>
-					<span
-						class="px-3 py-1 text-sm rounded-full
-                          {{ $task->status === \App\TaskStatus::COMPLETED ? 'bg-green-200 text-green-800' : 'bg-gray-200 text-gray-800' }}">
-						{{ Str::headline($task->status->getLabel()) }}
-					</span>
+					<div class="gap-1">
+						@if ($task->is_important)
+							<span class="text-red-500">★</span>
+						@endif
+						<span
+							class="px-3 py-1 text-sm rounded-full
+							{{ $task->status === \App\TaskStatus::COMPLETED ? 'bg-green-200 text-green-800' : 'bg-gray-200 text-gray-800' }}">
+							{{ Str::headline($task->status->getLabel()) }}
+						</span>
+					</div>
 				</div>
 
 				<div class="space-y-4 text-gray-600">
