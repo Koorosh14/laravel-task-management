@@ -149,7 +149,7 @@
 
 		@if ($tasks instanceof \Illuminate\Pagination\AbstractPaginator)
 			<div class="mt-8">
-				{{ $tasks->links() }}
+				{{ $tasks->appends(request()->except('page'))->links() }}
 			</div>
 		@endif
 	</div>
