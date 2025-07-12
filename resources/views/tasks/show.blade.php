@@ -4,12 +4,12 @@
 
 @section('content')
 	<div class="m-4">
-		<a href="{{ route('tasks.index') }}" class="inline-flex items-center border border-blue-200 px-3 py-1.5 rounded-md text-blue-400 hover:bg-blue-50">
-			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-4 w-4">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18">
-				</path>
+		<a href="{{ route('tasks.index') }}"
+			class="inline-flex items-center px-4 py-2 bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest hover:bg-gray-300 active:bg-gray-400 focus:outline-none focus:border-gray-400 focus:shadow-outline-gray transition ease-in-out duration-150">
+			<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
 			</svg>
-			<span class="ml-1 font-bold">Back to Tasks</span>
+			Back to Tasks
 		</a>
 	</div>
 
@@ -17,7 +17,10 @@
 		<div class="max-w-3xl mx-auto">
 			<div class="bg-white rounded-lg shadow-md p-6 mb-6">
 				<div class="flex items-center justify-between mb-6">
-					<h1 class="text-3xl font-bold">{{ $task->title }}</h1>
+					<div>
+						<h1 class="text-2xl font-bold text-gray-900">{{ $task->title }}</h1>
+						<p class="mt-1 text-sm text-gray-500">Task created {{ $task->created_at->format('M d, Y') }}</p>
+					</div>
 					<div class="gap-1">
 						@if ($task->is_important)
 							<span class="text-red-500">★</span>
@@ -44,6 +47,11 @@
 						</div>
 
 						<div>
+							<label class="font-medium">Last Updated:</label>
+							<p>{{ $task->updated_at->diffForHumans() }}</p>
+						</div>
+
+						<div>
 							<label class="font-medium">Assigned to:</label>
 							@if ($task->assignee)
 								<p>{{ $task->assignee->name ?? $task->assignee->email }}</p>
@@ -56,6 +64,9 @@
 							<div>
 								<label class="font-medium">Due Date:</label>
 								<p>{{ $task->due_date->format('M d, Y H:i') }}</p>
+								@if ($task->due_date->isPast() && $task->status !== \App\TaskStatus::COMPLETED)
+									<span class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-red-600/10 ring-inset">Overdue</span>
+								@endif
 							</div>
 						@endif
 					</div>
