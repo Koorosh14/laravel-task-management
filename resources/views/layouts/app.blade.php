@@ -21,7 +21,7 @@
 			<div class="hidden lg:flex lg:items-center w-full lg:w-auto lg:space-x-4">
 				<ul class="flex flex-col lg:flex-row lg:space-x-4 w-full lg:w-auto">
 					<li>
-						<a class="block px-3 py-2 rounded text-white hover:bg-blue-700" href="{{ route('tasks.index') }}">Tasks</a>
+						<a class="block px-3 py-2 rounded {{ request()->is('tasks*') ? 'bg-blue-800 text-white' : 'text-white hover:bg-blue-700' }}" href="{{ route('tasks.index') }}">Tasks</a>
 					</li>
 				</ul>
 				<ul class="flex flex-col lg:flex-row lg:space-x-4 mt-2 lg:mt-0">
