@@ -92,8 +92,8 @@ class TaskController extends Controller
 	/**
 	 * Updates a specified task.
 	 *
-	 * @param	Task		$task
 	 * @param	Request		$request
+	 * @param	Task		$task
 	 *
 	 * @return	\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
 	 */
@@ -114,6 +114,25 @@ class TaskController extends Controller
 
 		return redirect()->route('tasks.show', $task->id)
 			->with('success', 'Task updated successfully');
+	}
+
+	/**
+	 * Updates only the status of a specified task.
+	 *
+	 * @param	Request		$request
+	 * @param	Task		$task
+	 *
+	 * @return	\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+	 */
+	public function updateStatus(Request $request, Task $task)
+	{
+		// Validate status
+		$validated = $request->validate(['status' => 'required|in:pending,in_progress,completed']);
+
+		// Update task status
+		$task->update($validated);
+
+		return redirect()->back()->with('success', 'Task status updated');
 	}
 
 	/**
