@@ -6,17 +6,23 @@
 	<div class="flex justify-between items-center mb-8">
 		<h1 class="text-3xl font-bold mb-8">Task List</h1>
 
-		<a href="{{ route('tasks.create') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">New Task</a>
+		<a href="{{ route('tasks.create') }}"
+			class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-800 transition ease-in-out duration-150">
+			<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+			</svg>
+			Add Task
+		</a>
 	</div>
 
 	<div class="container mx-auto px-4 py-8">
 		{{-- Filter and Sort --}}
 		<div class="mb-6 flex flex-col md:flex-row justify-between">
-			<div class="filters mb-4 md:mb-0">
-				<form action="{{ route('tasks.index') }}" method="get" class="flex flex-wrap gap-2">
-					<div>
-						<label for="filters-status" class="text-gray-600">Status</label>
-						<select id="filters-status" name="status" class="py-2 px-3 border border-gray-300 rounded-md">
+			<div class="filters mb-4 md:mb-0 w-full">
+				<form action="{{ route('tasks.index') }}" method="get" class="flex flex-wrap gap-4 w-full">
+					<div class="flex-1 min-w-[180px]">
+						<label for="filters-status" class="text-gray-600 block mb-1">Status</label>
+						<select id="filters-status" name="status" class="py-2 px-3 border border-gray-300 rounded-md w-full">
 							<option value="">All Statuses</option>
 							<option value="{{ \App\TaskStatus::PENDING }}" {{ $filters['status'] == \App\TaskStatus::PENDING->value ? 'selected' : '' }}>Pending</option>
 							<option value="{{ \App\TaskStatus::IN_PROGRESS }}" {{ $filters['status'] == \App\TaskStatus::IN_PROGRESS->value ? 'selected' : '' }}>In Progress</option>
@@ -24,9 +30,9 @@
 						</select>
 					</div>
 
-					<div>
-						<label for="filters-sort" class="text-gray-600">Sort</label>
-						<select id="filters-sort" name="sort" class="py-2 px-3 border border-gray-300 rounded-md">
+					<div class="flex-1 min-w-[180px]">
+						<label for="filters-sort" class="text-gray-600 block mb-1">Sort</label>
+						<select id="filters-sort" name="sort" class="py-2 px-3 border border-gray-300 rounded-md w-full">
 							<option value="due_date" {{ $filters['sort'] == 'due_date' ? 'selected' : '' }}>Due Date</option>
 							<option value="title" {{ $filters['sort'] == 'title' ? 'selected' : '' }}>Title</option>
 							<option value="created_at" {{ $filters['sort'] == 'created_at' ? 'selected' : '' }}>Creation Date</option>
@@ -34,22 +40,27 @@
 						</select>
 					</div>
 
-					<div>
-						<select name="sort_by" class="py-2 px-3 border border-gray-300 rounded-md">
+					<div class="flex-1 min-w-[140px]">
+						<label for="filters-sort-by" class="text-gray-600 block mb-1">Order</label>
+						<select id="filters-sort-by" name="sort_by" class="py-2 px-3 border border-gray-300 rounded-md w-full">
 							<option value="DESC" {{ $filters['sort_by'] == 'DESC' ? 'selected' : '' }}>Descending</option>
 							<option value="ASC" {{ $filters['sort_by'] == 'ASC' ? 'selected' : '' }}>Ascending</option>
 						</select>
 					</div>
 
-					<button type="submit" class="py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-						Apply Filters
-					</button>
+					<div class="flex items-end gap-2">
+						<button type="submit"
+							class="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray transition ease-in-out duration-150">
+							Filter
+						</button>
 
-					@if ($filters['status'] || $filters['sort'] != 'due_date' || $filters['sort_by'] != 'ASC')
-						<a href="{{ route('tasks.index') }}" class="py-2 px-4 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">
-							Reset
-						</a>
-					@endif
+						@if ($filters['status'] || $filters['sort'] != 'due_date' || $filters['sort_by'] != 'ASC')
+							<a href="{{ route('tasks.index') }}"
+								class="ml-2 inline-flex items-center px-4 py-2 bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest hover:bg-gray-300 active:bg-gray-400 focus:outline-none focus:border-gray-400 focus:shadow-outline-gray transition ease-in-out duration-150">
+								Clear
+							</a>
+						@endif
+					</div>
 				</form>
 			</div>
 		</div>
