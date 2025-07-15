@@ -18,6 +18,7 @@ class TaskController extends Controller
 	public function index(Request $request)
 	{
 		$filters = [
+			'search'  => $request->query->get('search'),
 			'status'  => $request->query->get('status'),
 			'sort'    => $request->query->get('sort', 'due_date'),
 			'sort_by' => $request->query->get('sort_by', 'ASC'),
@@ -54,7 +55,7 @@ class TaskController extends Controller
 		// Get users for `assigned_to` dropdown
 		$users = User::where('is_active', true)->get();
 
-		return view('tasks.create', compact('users'/* , 'parentTask' */));
+		return view('tasks.create', compact('users'));
 	}
 
 	/**

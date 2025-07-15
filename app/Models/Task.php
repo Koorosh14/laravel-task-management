@@ -64,7 +64,7 @@ class Task extends Model
 	}
 
 	/**
-	 * Returns tasks with filters and sorting.
+	 * Returns tasks with search, filters and sorting.
 	 *
 	 * @param	array	$filters
 	 *
@@ -73,6 +73,12 @@ class Task extends Model
 	public static function getFilteredTasks(array $filters)
 	{
 		$tasks = Task::query()->with(['creator', 'assignee']);
+
+		if (!empty($filters['search']))
+		{
+			$tasks->where('title', 'LIKE', "%{$filters['search']}%")
+				->orWhere('description', 'LIKE', "%{$filters['search']}%");
+		}
 
 		if (!empty($status = TaskStatus::tryFrom($filters['status'])))
 			$tasks = $tasks->where('status', $status);

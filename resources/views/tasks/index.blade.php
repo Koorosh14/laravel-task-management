@@ -3,8 +3,21 @@
 @section('title', 'Tasks List')
 
 @section('content')
-	<div class="flex justify-between items-center mb-8">
-		<h1 class="text-3xl font-bold mb-8">Task List</h1>
+	<div class="flex justify-between items-center mb-8 max-md:flex-col max-md:gap-2">
+		<h1 class="text-3xl font-bold">Task List</h1>
+
+		{{-- Search form --}}
+		<form action="{{ route('tasks.index') }}" method="get" class="flex md:mx-4 w-full md:w-auto">
+			<input type="text" name="search" placeholder="Search tasks..."
+				class="px-4 py-2 border border-gray-300 rounded-l-md w-full md:w-64" value="{{ $filters['search'] }}">
+			<button type="submit" class="flex items-center bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-600">
+				<svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+						d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
+				</svg>
+				Search
+			</button>
+		</form>
 
 		<a href="{{ route('tasks.create') }}"
 			class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-800 transition ease-in-out duration-150">
@@ -138,6 +151,7 @@
 						<form action="{{ route('tasks.destroy', $task->id) }}" method="POST" class="inline-block">
 							@csrf
 							@method('DELETE')
+
 							<button type="submit" onclick="return confirm('Are you sure you want to delete this task? This action cannot be undone!')"
 								class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition ease-in-out duration-150">
 								<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
