@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -50,7 +51,10 @@ class TaskController extends Controller
 	 */
 	public function create()
 	{
-		return view('tasks.create');
+		// Get users for `assigned_to` dropdown
+		$users = User::where('is_active', true)->get();
+
+		return view('tasks.create', compact('users'/* , 'parentTask' */));
 	}
 
 	/**
@@ -69,6 +73,7 @@ class TaskController extends Controller
 			'status'       => 'required|in:pending,in_progress,completed',
 			// 'is_important' => 'sometimes|boolean',
 			'due_date'     => 'nullable|date',
+			'assigned_to'  => 'nullable|exists:users,id',
 		]);
 
 		$validated['created_by']   = 1; // Temporary placeholder for now
