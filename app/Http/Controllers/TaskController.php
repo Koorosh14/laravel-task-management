@@ -94,7 +94,10 @@ class TaskController extends Controller
 	 */
 	public function edit(Task $task)
 	{
-		return view('tasks.edit', compact('task'));
+		// Get users for `assigned_to` dropdown
+		$users = User::where('is_active', true)->get();
+
+		return view('tasks.edit', compact('task', 'users'));
 	}
 
 	/**
@@ -114,6 +117,7 @@ class TaskController extends Controller
 			'status'       => 'required|in:pending,in_progress,completed',
 			// 'is_important' => 'sometimes|boolean',
 			'due_date'     => 'nullable|date',
+			'assigned_to'  => 'nullable|exists:users,id',
 		]);
 
 		$validated['is_important'] = $request->has('is_important');

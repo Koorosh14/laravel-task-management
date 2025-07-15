@@ -100,12 +100,35 @@
 					{{-- Importance --}}
 					<div>
 						<label for="is_important" class="block text-sm font-medium text-gray-700">
-							Is important?
+							Is Important?
 						</label>
 						<div class="mt-1">
 							<input type="checkbox" id="is_important" name="is_important" @checked(old('is_important', $task->is_important)) />
 						</div>
 						@error('is_important')
+							<p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+						@enderror
+					</div>
+				</div>
+
+				{{-- Assigned To --}}
+				<div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-3 mb-6">
+					<div>
+						<label for="assigned_to" class="block text-sm font-medium text-gray-700">
+							Assigned To
+						</label>
+						<div class="mt-1">
+							<select id="assigned_to" name="assigned_to"
+								class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md @error('assigned_to') border-red-300 @enderror">
+								<option value="">Select a user</option>
+								@foreach ($users as $user)
+									<option value="{{ $user->id }}" {{ old('assigned_to', $task->assigned_to) == $user->id ? 'selected' : '' }}>
+										{{ $user->name ?? $user->email }}
+									</option>
+								@endforeach
+							</select>
+						</div>
+						@error('assigned_to')
 							<p class="mt-2 text-sm text-red-600">{{ $message }}</p>
 						@enderror
 					</div>
