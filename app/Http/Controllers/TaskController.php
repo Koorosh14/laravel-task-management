@@ -37,6 +37,9 @@ class TaskController extends Controller
 	 */
 	public function show(Task $task)
 	{
+		// Load relationships
+		$task->load(['creator', 'assignee']);
+
 		return view('tasks.show', compact('task'));
 	}
 
