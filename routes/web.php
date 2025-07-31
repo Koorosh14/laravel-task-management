@@ -13,3 +13,5 @@ Route::put('/tasks/edit/{task}', [TaskController::class, 'update'])->name('tasks
 Route::patch('/tasks/edit/{task}', [TaskController::class, 'updateStatus'])->name('tasks.update_status');
 Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
 Route::get('/tasks/{task}', [TaskController::class, 'show'])->name('tasks.show');
+
+require base_path('routes/auth-routes.php');
