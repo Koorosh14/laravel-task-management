@@ -26,10 +26,10 @@
 				</ul>
 				<ul class="flex flex-col lg:flex-row lg:space-x-4 mt-2 lg:mt-0">
 					<li>
-						<a class="block px-3 py-2 rounded text-white hover:bg-blue-700" href="#">Login</a>
+						<a class="block px-3 py-2 rounded text-white hover:bg-blue-700" href="{{ route('login') }}">Login</a>
 					</li>
 					<li>
-						<a class="block px-3 py-2 rounded text-white hover:bg-blue-700" href="#">Register</a>
+						<a class="block px-3 py-2 rounded text-white hover:bg-blue-700" href="{{ route('register') }}">Register</a>
 					</li>
 				</ul>
 			</div>
