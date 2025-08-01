@@ -10,3 +10,6 @@ Route::post('/login', [AuthController::class, 'login']);
 // Registration routes
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
+
+// Logout route
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

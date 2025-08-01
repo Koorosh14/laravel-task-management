@@ -92,4 +92,25 @@ class AuthController extends Controller
 
 		return redirect()->route('tasks.index');
 	}
+
+	/**
+	 * Handles user logout.
+	 *
+	 * @param	Request		$request
+	 *
+	 * @return	\Illuminate\Http\RedirectResponse
+	 */
+	public function logout(Request $request)
+	{
+		// Log the user out
+		Auth::logout();
+
+		// Invalidate the session
+		$request->session()->invalidate();
+
+		// Regenerate CSRF token
+		$request->session()->regenerateToken();
+
+		return redirect()->route('tasks.index');
+	}
 }

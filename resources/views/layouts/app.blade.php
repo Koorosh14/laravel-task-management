@@ -31,6 +31,12 @@
 					<li>
 						<a class="block px-3 py-2 rounded text-white hover:bg-blue-700" href="{{ route('register') }}">Register</a>
 					</li>
+					<li>
+						<form class="block px-3 py-2 rounded text-white hover:bg-blue-700" method="POST" action="{{ route('logout') }}">
+							@csrf
+							<button type="submit">Logout</button>
+						</form>
+					</li>
 				</ul>
 			</div>
 		</div>
