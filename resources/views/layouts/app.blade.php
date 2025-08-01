@@ -31,17 +31,17 @@
 				<ul class="flex flex-col lg:flex-row lg:space-x-4 mt-2 lg:mt-0">
 					@auth
 						<li>
-							<a class="block px-3 py-2 rounded text-white hover:bg-blue-700" href="{{ route('login') }}">Login</a>
-						</li>
-						<li>
-							<a class="block px-3 py-2 rounded text-white hover:bg-blue-700" href="{{ route('register') }}">Register</a>
-						</li>
-					@else
-						<li>
 							<form method="POST" action="{{ route('logout') }}" class="block px-3 py-2 rounded text-white hover:bg-blue-700">
 								@csrf
 								<button type="submit">Logout</button>
 							</form>
+						</li>
+					@else
+						<li>
+							<a class="block px-3 py-2 rounded text-white hover:bg-blue-700" href="{{ route('login') }}">Login</a>
+						</li>
+						<li>
+							<a class="block px-3 py-2 rounded text-white hover:bg-blue-700" href="{{ route('register') }}">Register</a>
 						</li>
 					@endauth
 				</ul>
@@ -56,6 +56,12 @@
 					Tasks
 				</a>
 				@auth
+					<form method="POST" action="{{ route('logout') }}"
+						class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-white hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800">
+						@csrf
+						<button type="submit">Logout</button>
+					</form>
+				@else
 					<a href="{{ route('login') }}"
 						class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-white hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 }}">
 						Login
@@ -64,12 +70,6 @@
 						class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-white hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 }}">
 						Register
 					</a>
-				@else
-					<form method="POST" action="{{ route('logout') }}"
-						class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-white hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800">
-						@csrf
-						<button type="submit">Logout</button>
-					</form>
 				@endauth
 			</div>
 		</div>
