@@ -16,12 +16,16 @@
 
 <body>
 	<nav class="bg-blue-600 mb-4">
+		{{-- Navbar --}}
 		<div class="container mx-auto flex items-center justify-between py-3 px-4">
 			<a class="text-white font-bold text-xl" href="{{ url('/') }}">{{ config('app.name', 'Task Management') }}</a>
 			<div class="hidden lg:flex lg:items-center w-full lg:w-auto lg:space-x-4">
 				<ul class="flex flex-col lg:flex-row lg:space-x-4 w-full lg:w-auto">
 					<li>
-						<a class="block px-3 py-2 rounded {{ request()->is('tasks*') ? 'bg-blue-800 text-white' : 'text-white hover:bg-blue-700' }}" href="{{ route('tasks.index') }}">Tasks</a>
+						<a href="{{ route('tasks.index') }}"
+							class="block px-3 py-2 rounded {{ request()->is('tasks*') ? 'bg-blue-800 text-white' : 'text-white hover:bg-blue-700' }}">
+							Tasks
+						</a>
 					</li>
 				</ul>
 				<ul class="flex flex-col lg:flex-row lg:space-x-4 mt-2 lg:mt-0">
@@ -34,13 +38,39 @@
 						</li>
 					@else
 						<li>
-							<form class="block px-3 py-2 rounded text-white hover:bg-blue-700" method="POST" action="{{ route('logout') }}">
+							<form method="POST" action="{{ route('logout') }}" class="block px-3 py-2 rounded text-white hover:bg-blue-700">
 								@csrf
 								<button type="submit">Logout</button>
 							</form>
 						</li>
 					@endauth
 				</ul>
+			</div>
+		</div>
+
+		{{-- Mobile navbar --}}
+		<div class="sm:hidden">
+			<div class="pt-2 pb-3 space-y-1">
+				<a href="{{ route('tasks.index') }}"
+					class="block pl-3 pr-4 py-2 {{ request()->is('tasks*') ? 'bg-indigo-50 border-l-4 border-indigo-500 text-indigo-700' : 'border-l-4 border-transparent text-white hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }}">
+					Tasks
+				</a>
+				@auth
+					<a href="{{ route('login') }}"
+						class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-white hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 }}">
+						Login
+					</a>
+					<a href="{{ route('register') }}"
+						class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-white hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 }}">
+						Register
+					</a>
+				@else
+					<form method="POST" action="{{ route('logout') }}"
+						class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-white hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800">
+						@csrf
+						<button type="submit">Logout</button>
+					</form>
+				@endauth
 			</div>
 		</div>
 	</nav>
