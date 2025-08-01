@@ -23,7 +23,7 @@
 				<ul class="flex flex-col lg:flex-row lg:space-x-4 w-full lg:w-auto">
 					<li>
 						<a href="{{ route('tasks.index') }}"
-							class="block px-3 py-2 rounded {{ request()->is('tasks*') ? 'bg-blue-800 text-white' : 'text-white hover:bg-blue-700' }}">
+							class="block px-3 py-2 rounded {{ request()->is('tasks*') ? 'text-white bg-blue-800' : 'text-white hover:bg-blue-700' }}">
 							Tasks
 						</a>
 					</li>
@@ -38,10 +38,12 @@
 						</li>
 					@else
 						<li>
-							<a class="block px-3 py-2 rounded text-white hover:bg-blue-700" href="{{ route('login') }}">Login</a>
+							<a href="{{ route('login') }}"
+								class="block px-3 py-2 rounded {{ request()->routeIs('login') ? 'text-white bg-blue-800' : 'text-white hover:bg-blue-700' }}">Login</a>
 						</li>
 						<li>
-							<a class="block px-3 py-2 rounded text-white hover:bg-blue-700" href="{{ route('register') }}">Register</a>
+							<a href="{{ route('register') }}"
+								class="block px-3 py-2 rounded {{ request()->routeIs('register') ? 'text-white bg-blue-800' : 'text-white hover:bg-blue-700' }}">Register</a>
 						</li>
 					@endauth
 				</ul>
@@ -57,17 +59,17 @@
 				</a>
 				@auth
 					<form method="POST" action="{{ route('logout') }}"
-						class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-white hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800">
+						class="block pl-3 pr-4 py-2 {{ request()->routeIs('logout') ? 'bg-indigo-50 border-l-4 border-indigo-500 text-indigo-700' : 'border-l-4 border-transparent text-white hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }}">
 						@csrf
 						<button type="submit">Logout</button>
 					</form>
 				@else
 					<a href="{{ route('login') }}"
-						class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-white hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 }}">
+						class="block pl-3 pr-4 py-2 {{ request()->routeIs('login') ? 'bg-indigo-50 border-l-4 border-indigo-500 text-indigo-700' : 'border-l-4 border-transparent text-white hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }}">
 						Login
 					</a>
 					<a href="{{ route('register') }}"
-						class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-white hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 }}">
+						class="block pl-3 pr-4 py-2 {{ request()->routeIs('register') ? 'bg-indigo-50 border-l-4 border-indigo-500 text-indigo-700' : 'border-l-4 border-transparent text-white hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }}">
 						Register
 					</a>
 				@endauth
