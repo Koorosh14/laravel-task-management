@@ -13,7 +13,7 @@ class TaskController extends Controller
 	 *
 	 * @param	Request		$request
 	 *
-	 * @return	\Illuminate\Contracts\View\View
+	 * @return	\Illuminate\View\View
 	 */
 	public function index(Request $request)
 	{
@@ -35,7 +35,7 @@ class TaskController extends Controller
 	 *
 	 * @param	Task		$task
 	 *
-	 * @return	\Illuminate\Contracts\View\View
+	 * @return	\Illuminate\View\View
 	 */
 	public function show(Task $task)
 	{
@@ -48,7 +48,7 @@ class TaskController extends Controller
 	/**
 	 * Displays the form for creating a new task.
 	 *
-	 * @return	\Illuminate\Contracts\View\View
+	 * @return	\Illuminate\View\View
 	 */
 	public function create()
 	{
@@ -63,7 +63,7 @@ class TaskController extends Controller
 	 *
 	 * @param	Request		$request
 	 *
-	 * @return	\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+	 * @return	\Illuminate\Http\RedirectResponse
 	 */
 	public function store(Request $request)
 	{
@@ -91,7 +91,7 @@ class TaskController extends Controller
 	 *
 	 * @param	Task		$task
 	 *
-	 * @return	\Illuminate\Contracts\View\View
+	 * @return	\Illuminate\View\View
 	 */
 	public function edit(Task $task)
 	{
@@ -107,7 +107,7 @@ class TaskController extends Controller
 	 * @param	Request		$request
 	 * @param	Task		$task
 	 *
-	 * @return	\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+	 * @return	\Illuminate\Http\RedirectResponse
 	 */
 	public function update(Request $request, Task $task)
 	{
@@ -135,7 +135,7 @@ class TaskController extends Controller
 	 * @param	Request		$request
 	 * @param	Task		$task
 	 *
-	 * @return	\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+	 * @return	\Illuminate\Http\RedirectResponse
 	 */
 	public function updateStatus(Request $request, Task $task)
 	{
@@ -153,7 +153,7 @@ class TaskController extends Controller
 	 *
 	 * @param	Task		$task
 	 *
-	 * @return	\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+	 * @return	\Illuminate\Http\RedirectResponse
 	 */
 	public function destroy(Task $task)
 	{
