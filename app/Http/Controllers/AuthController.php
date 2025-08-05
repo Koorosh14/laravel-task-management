@@ -42,7 +42,7 @@ class AuthController extends Controller
 			// Regenerate session to prevent fixation attacks
 			$request->session()->regenerate();
 
-			return redirect()->route('tasks.index');
+			return redirect()->intended('tasks.index');
 		}
 
 		// Authentication failed
