@@ -17,6 +17,10 @@ class AuthController extends Controller
 	 */
 	public function showLoginForm()
 	{
+		// Redirect to tasks index if already authenticated
+		if (Auth::check())
+			return redirect()->route('tasks.index');
+
 		return view('auth.login');
 	}
 
@@ -58,6 +62,10 @@ class AuthController extends Controller
 	 */
 	public function showRegisterForm()
 	{
+		// Redirect to tasks index if already authenticated
+		if (Auth::check())
+			return redirect()->route('tasks.index');
+
 		return view('auth.register');
 	}
 
