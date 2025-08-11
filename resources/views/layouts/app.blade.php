@@ -20,6 +20,9 @@
 		<div class="container mx-auto flex items-center justify-between py-3 px-4">
 			<a class="text-white font-bold text-xl" href="{{ url('/') }}">{{ config('app.name', 'Task Management') }}</a>
 			<div class="hidden lg:flex lg:items-center w-full lg:w-auto lg:space-x-4">
+				@auth
+					<span class="text-white">Welcome, {{ auth()->user()->name ?? auth()->user()->email }}!</span>
+				@endauth
 				<ul class="flex flex-col lg:flex-row lg:space-x-4 w-full lg:w-auto">
 					<li>
 						<a href="{{ route('tasks.index') }}"
