@@ -3,7 +3,14 @@
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', fn() => view('welcome'));
+// Redirect root to dashboard if authenticated, otherwise to login
+Route::get('/', function()
+{
+	if (auth()->check())
+		return redirect()->route('dashboard.index');
+
+	return redirect()->route('login');
+});
 
 // Authenticated routes (only accessible when authenticated)
 Route::middleware('auth')->group(function()
