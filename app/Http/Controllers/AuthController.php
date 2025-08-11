@@ -17,9 +17,9 @@ class AuthController extends Controller
 	 */
 	public function showLoginForm()
 	{
-		// Redirect to tasks index if already authenticated
+		// Redirect to dashboard if already authenticated
 		if (Auth::check())
-			return redirect()->route('tasks.index');
+			return redirect()->route('dashboard.index');
 
 		return view('auth.login');
 	}
@@ -46,7 +46,7 @@ class AuthController extends Controller
 			// Regenerate session to prevent fixation attacks
 			$request->session()->regenerate();
 
-			return redirect()->intended('tasks.index');
+			return redirect()->intended(route('dashboard.index'));
 		}
 
 		// Authentication failed
@@ -62,9 +62,9 @@ class AuthController extends Controller
 	 */
 	public function showRegisterForm()
 	{
-		// Redirect to tasks index if already authenticated
+		// Redirect to dashboard if already authenticated
 		if (Auth::check())
-			return redirect()->route('tasks.index');
+			return redirect()->route('dashboard.index');
 
 		return view('auth.register');
 	}
@@ -98,7 +98,7 @@ class AuthController extends Controller
 		// Regenerate session
 		$request->session()->regenerate();
 
-		return redirect()->route('tasks.index');
+		return redirect()->route('dashboard.index');
 	}
 
 	/**
