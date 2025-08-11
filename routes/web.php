@@ -20,3 +20,4 @@ Route::middleware('auth')->group(function()
 });
 
 require base_path('routes/auth-routes.php');
+require base_path('routes/dashboard-routes.php');
