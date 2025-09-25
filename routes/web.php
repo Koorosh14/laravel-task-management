@@ -3,6 +3,9 @@
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
+require base_path('routes/auth-routes.php');
+require base_path('routes/dashboard-routes.php');
+
 // Redirect root to dashboard if authenticated, otherwise to login
 Route::get('/', function()
 {
@@ -25,6 +28,3 @@ Route::middleware('auth')->group(function()
 	Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
 	Route::get('/tasks/{task}', [TaskController::class, 'show'])->name('tasks.show');
 });
-
-require base_path('routes/auth-routes.php');
-require base_path('routes/dashboard-routes.php');
