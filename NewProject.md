@@ -202,8 +202,44 @@ OR maybe
 {{ route('tasks.show', $task->id) }}
 ```
 
+## Add authentication
+
+### 1. Controllers
+Create [`app/Http/Controllers/AuthController.php`](./app/Http/Controllers/AuthController.php) and [`app/Http/Controllers/DashboardController.php`](./app/Http/Controllers/DashboardController.php) and copy the contents from the corresponding files in the project.
+
+### 2. Views
+Create the following view files in `resources/views/`:
+- [`auth/login.blade.php`](./resources/views/auth/login.blade.php)
+- [`auth/register.blade.php`](./resources/views/auth/register.blade.php)
+- [`dashboard.blade.php`](./resources/views/dashboard.blade.php)
+
+### 3. Routes
+Add [`routes/auth-routes.php`](./routes/auth-routes.php) and update [`routes/web.php`](./routes/web.php) to include the auth routes.
+
+### 4. Middleware
+```
+php artisan make:middleware RedirectIfAuthenticated
+```
+[More details on middlewares](https://laravel.com/docs/12.x/middleware#registering-middleware).
+
 ## Run the server
 ```
 php artisan serve
 ```
 Then you should be able to see Laravel's welcome page at http://localhost:8000.
+
+## Add tests
+```
+php artisan make:test TestName
+```
+For example:
+```
+php artisan make:test AuthTest
+```
+
+Then run tests with these commands:
+```
+php artisan test
+OR
+php artisan test --testsuite=Feature
+```
