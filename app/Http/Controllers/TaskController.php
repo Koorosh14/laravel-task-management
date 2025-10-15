@@ -77,7 +77,8 @@ class TaskController extends Controller
 			'assigned_to'  => 'nullable|exists:users,id',
 		]);
 
-		$validated['created_by']   = 1; // Temporary placeholder for now
+		// Set created_by to current user ID
+		$validated['created_by']   = auth()->id();
 		$validated['is_important'] = $request->has('is_important');
 
 		$task = Task::create($validated);
@@ -95,6 +96,9 @@ class TaskController extends Controller
 	 */
 	public function edit(Task $task)
 	{
+		if ($task->created_by !== auth()->id())
+			return redirect()->route('tasks.index')->with('error', 'You are not authorized to edit this task!');
+
 		// Get users for `assigned_to` dropdown
 		$users = User::where('is_active', true)->get();
 
@@ -111,6 +115,9 @@ class TaskController extends Controller
 	 */
 	public function update(Request $request, Task $task)
 	{
+		if ($task->created_by !== auth()->id())
+			return redirect()->back()->with('error', 'You are not authorized to update this task!');
+
 		// Validate the request
 		$validated = $request->validate([
 			'title'        => 'required|string|max:512',
@@ -139,6 +146,9 @@ class TaskController extends Controller
 	 */
 	public function updateStatus(Request $request, Task $task)
 	{
+		if ($task->created_by !== auth()->id())
+			return redirect()->back()->with('error', 'You are not authorized to update this task!');
+
 		// Validate status
 		$validated = $request->validate(['status' => 'required|in:pending,in_progress,completed']);
 
@@ -157,6 +167,10 @@ class TaskController extends Controller
 	 */
 	public function destroy(Task $task)
 	{
+		if ($task->created_by !== auth()->id())
+			return redirect()->back()->with('error', 'You are not authorized to delete this task!');
+
+		// Delete task
 		$task->delete();
 
 		return redirect()->route('tasks.index')
