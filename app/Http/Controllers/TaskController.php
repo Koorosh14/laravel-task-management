@@ -25,7 +25,7 @@ class TaskController extends Controller
 		];
 
 		return view('tasks.index', [
-			'tasks'   => Task::getFilteredTasks($filters),
+			'tasks'   => Task::getFilteredTasks(auth()->id(), $filters),
 			'filters' => $filters,
 		]);
 	}

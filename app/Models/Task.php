@@ -64,15 +64,21 @@ class Task extends Model
 	}
 
 	/**
-	 * Returns tasks with search, filters and sorting.
+	 * Returns tasks created by and assigned to the given user (with search, filters and sorting).
 	 *
+	 * @param	int		$userId
 	 * @param	array	$filters
 	 *
 	 * @return	Task[]
 	 */
-	public static function getFilteredTasks(array $filters)
+	public static function getFilteredTasks(int $userId, array $filters)
 	{
-		$tasks = Task::query()->with(['creator', 'assignee']);
+		$tasks = Task::query()->with(['creator', 'assignee'])
+			->where(function($query) use ($userId)
+			{
+				$query->where('created_by', $userId)
+					->orWhere('assigned_to', $userId);
+			});
 
 		if (!empty($filters['search']))
 		{
