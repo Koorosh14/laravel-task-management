@@ -39,6 +39,10 @@ class TaskController extends Controller
 	 */
 	public function show(Task $task)
 	{
+		// Check if user is authorized to view the task
+		if ($task->created_by !== auth()->id() && $task->assigned_to !== auth()->id())
+			return redirect()->route('tasks.index')->with('error', 'You are not authorized to view this task!');
+
 		// Load relationships
 		$task->load(['creator', 'assignee']);
 
@@ -96,7 +100,7 @@ class TaskController extends Controller
 	 */
 	public function edit(Task $task)
 	{
-		if ($task->created_by !== auth()->id())
+		if ($task->created_by !== auth()->id() && $task->assigned_to !== auth()->id())
 			return redirect()->route('tasks.index')->with('error', 'You are not authorized to edit this task!');
 
 		// Get users for `assigned_to` dropdown
@@ -115,7 +119,7 @@ class TaskController extends Controller
 	 */
 	public function update(Request $request, Task $task)
 	{
-		if ($task->created_by !== auth()->id())
+		if ($task->created_by !== auth()->id() && $task->assigned_to !== auth()->id())
 			return redirect()->back()->with('error', 'You are not authorized to update this task!');
 
 		// Validate the request
@@ -146,7 +150,7 @@ class TaskController extends Controller
 	 */
 	public function updateStatus(Request $request, Task $task)
 	{
-		if ($task->created_by !== auth()->id())
+		if ($task->created_by !== auth()->id() && $task->assigned_to !== auth()->id())
 			return redirect()->back()->with('error', 'You are not authorized to update this task!');
 
 		// Validate status
@@ -167,7 +171,7 @@ class TaskController extends Controller
 	 */
 	public function destroy(Task $task)
 	{
-		if ($task->created_by !== auth()->id())
+		if ($task->created_by !== auth()->id() && $task->assigned_to !== auth()->id())
 			return redirect()->back()->with('error', 'You are not authorized to delete this task!');
 
 		// Delete task
