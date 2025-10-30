@@ -20,6 +20,12 @@
 					<div>
 						<h1 class="text-2xl font-bold text-gray-900">{{ $task->title }}</h1>
 						<p class="mt-1 text-sm text-gray-500">Task created {{ $task->created_at->format('M d, Y') }}</p>
+						@if ($task->parent_id)
+							<a href="{{ route('tasks.show', $task->parent_id) }}"
+								class="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded hover:bg-blue-200">
+								Subtask of #{{ $task->parent_id }}
+							</a>
+						@endif
 					</div>
 					<div class="gap-1">
 						@if ($task->is_important)
@@ -38,6 +44,60 @@
 						<p class="whitespace-pre-wrap">{{ $task->description }}</p>
 					@else
 						<p class="text-gray-500">No description provided.</p>
+					@endif
+
+					@if (!$task->parent_id)
+						{{-- Subtasks Section (Only show when the task itself is not a subtask) --}}
+						<div class="shadow-sm rounded-lg bg-white mb-6">
+							<div class="px-6 py-4">
+								<div class="flex justify-between items-center py-3">
+									<h5 class="text-lg font-semibold">Subtasks</h5>
+
+									<div>
+										<div class="flex flex-col gap-2">
+											<a href="{{ route('tasks.create', ['parent_id' => $task->id]) }}"
+												class="inline-block border border-green-600 text-green-600 px-4 py-2 rounded hover:bg-green-50 font-semibold text-sm text-center">
+												Add Subtask
+											</a>
+										</div>
+									</div>
+								</div>
+
+								<div class="md:col-span-2">
+									@if ($task->subtasks && $task->subtasks->count() > 0)
+										<div class="mt-4">
+											<ul class="divide-y divide-gray-200">
+												@foreach ($task->subtasks as $subtask)
+													<li class="flex justify-between items-center py-3">
+														<div>
+															<a href="{{ route('tasks.show', $subtask->id) }}" class="text-blue-600 hover:underline">
+																{{ $subtask->title }}
+															</a>
+														</div>
+														<div>
+															@php
+																$statusClass =
+																	[
+																		'pending' => 'bg-yellow-100 text-yellow-800',
+																		'in_progress' => 'bg-blue-100 text-blue-800',
+																		'completed' => 'bg-green-100 text-green-800',
+																		'canceled' => 'bg-gray-200 text-gray-800',
+																	][$subtask->status->value] ?? 'bg-gray-100 text-gray-800';
+															@endphp
+															<span class="px-2 py-1 rounded text-xs font-semibold {{ $statusClass }}">
+																{{ ucfirst(str_replace('_', ' ', $subtask->status->value)) }}
+															</span>
+														</div>
+													</li>
+												@endforeach
+											</ul>
+										</div>
+									@else
+										<p class="text-gray-500 mt-2">No subtasks available.</p>
+									@endif
+								</div>
+							</div>
+						</div>
 					@endif
 
 					<div class="grid grid-cols-3 gap-4 text-sm">

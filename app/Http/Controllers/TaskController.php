@@ -44,7 +44,7 @@ class TaskController extends Controller
 			return redirect()->route('tasks.index')->with('error', 'You are not authorized to view this task!');
 
 		// Load relationships
-		$task->load(['creator', 'assignee']);
+		$task->load(['creator', 'assignee', 'subtasks']);
 
 		return view('tasks.show', compact('task'));
 	}
